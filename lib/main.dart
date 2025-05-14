@@ -1,46 +1,47 @@
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  // Ponto de entrada da aplicação
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  // Construtor padrão, marca a classe como imutável
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: 'Namer App',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
-        ),
-        home: MyHomePage(),
+    // MaterialApp é o widget raiz que fornece tema, rotas, etc.
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // Definimos a cor primária do app
+        primarySwatch: Colors.blue,
       ),
+      home: const MyHomePage(title: 'My first flutter app'),
     );
   }
 }
 
-class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
-}
-
 class MyHomePage extends StatelessWidget {
+  final String title;
+
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
+    // Scaffold cria a estrutura básica de uma tela Material
     return Scaffold(
-      body: Column(
-        children: [
-          Text(''),
-          Text('A random idea:'),
-          Text(appState.current.asLowerCase),
-        ],
+      appBar: AppBar(
+        // Exibe o título na barra superior
+        title: Text(title),
+      ),
+      body: const Center(
+        // Center centraliza seu filho na tela
+        child: Text(
+          'Flutter!',
+          style: TextStyle(fontSize: 24),
+        ),
       ),
     );
   }
